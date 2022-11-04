@@ -1,3 +1,6 @@
+# Chess
+# Programmer: Ilia Abbasi
+
 class Chess:
     __board = [['wR','wN','wB','wQ','wK','wB','wN','wR'],['wP']*8,['0']*8,['0']*8,['0']*8,['0']*8,['bP']*8,['bR','bN','bB','bQ','bK','bB','bN','bR']]
     __turn = 'w'
@@ -29,14 +32,19 @@ class Chess:
         return [-1,-1]
 
     def translate_specials(self, move : str, turn : str):
-        result = move
         
         if move == '0-0' and turn == 'w':
-            result = ['e1g1', 'h1f1']
+            return ['e1g1', 'h1f1']
         if move == '0-0' and turn == 'b':
-            result = ['e8g8', 'h8f8']
+            return ['e8g8', 'h8f8']
+        if move == '0-0-0' and turn == 'w':
+            return ['e1c1', 'a1d1']
+        if move == '0-0-0' and turn == 'b':
+            return ['e8c8', 'a8d8']
+        if len(move) == 5: #Translates both promotion and en passant
+            return (move[:4], move[4])
         
-        return result
+        return move
         #Function not complete
 
     def __play(self, move : str, board : list = __board) -> list:
@@ -255,38 +263,39 @@ class Chess:
         pos = self.get_pos(pos) if type(pos) is str else pos
         colors = ['w','b']
         index = colors.index(king_color)
+        counter = 0
 
         mylist = self.get_rook_move(pos, board)
         for i in mylist:
             p = self.get_piece(i, board)
             if p == (colors[not index] + 'R') or p == (colors[not index] + 'Q'):
-                return True
+                counter += 1
         
         mylist = self.get_bishop_move(pos, board)
         for i in mylist:
             p = self.get_piece(i, board)
             if p == (colors[not index] + 'B') or p == (colors[not index] + 'Q'):
-                return True
+                counter += 1
         
         mylist = self.get_knight_move(pos, board)
         for i in mylist:
             p = self.get_piece(i, board)
             if p == (colors[not index] + 'N'):
-                return True
+                counter += 1
         
         mylist = self.get_pawn_take(pos, colors[index], board)
         for i in mylist:
             p = self.get_piece(i, board)
             if p == (colors[not index] + 'P'):
-                return True
+                counter += 1
         
-        return False
+        return counter
     
     def is_legal_move(self, move : str, turn : str = __turn, board : list = __board) -> bool:
         colors = ['w','b']
         index = colors.index(turn)
         
-        if move == '0-0':
+        if move == '0-0': #Finds short castling
             rank = 7 if index else 0
             if board[rank][5] != '0' or board[rank][6] != '0':
                 return False
@@ -304,11 +313,32 @@ class Chess:
 
             return True
 
-        if move == '0-0-0':
-            pass
+        if move == '0-0-0': #Finds long castling
+            rank = 7 if index else 0
+            if board[rank][1] != '0' or board[rank][2] != '0' or board[rank][3] != '0':
+                return False
+            if board[rank][0] != colors[index] + 'R':
+                return False
+            if self.__king_moved[index]:
+                return False
+            if self.__rook_moved[index][0]:
+                return False
+            if self.is_check([rank, 4], colors[index], board) or self.is_check([rank, 3], colors[index], board) or self.is_check([rank, 2], colors[index], board):
+                return False
+            
+            self.__king_moved[index] = True
+            self.__rook_moved[index][0] = True
 
-        if move[:2] == 'ep':
-            pass
+            return True
+
+        if len(move) == 5: #Finds promotion moves
+            if move[4] not in 'qrbn':
+                return False
+            if self.get_piece(move[:2], board)[1] != 'P':
+                return False
+            if move[3] != '8' and move[3] != '1':
+                return False
+            move = move[:4]
         
         if len(move) != 4:
             return False
@@ -366,11 +396,17 @@ class Chess:
     def go_for(self, move : str, turn : str = __turn, board : list = __board) -> None:
         if self.is_legal_move(move, turn, board):
             move = self.translate_specials(move, turn)
-            if type(move) is list:
+            if type(move) is list: #Handles castling
                 for i in move:
                     self.__play(i, board)
                 return True
-            self.__play(move, board)
+            if type(move) is tuple: #Handles promotion
+                move = move[0] + move[1]
+                self.__play(move[:4], board)
+                cords = self.get_pos(move[2:4])
+                board[cords[0]][cords[1]] = turn + move[4].upper()
+                return True
+            self.__play(move, board) #Handles normal moves
             return True
         return False
     
@@ -391,7 +427,7 @@ def main():
     index = 0
 
     print("welcome to chess!")
-    print("* Long castle, En passant and Promotion is not available yet.")
+    print("* En passant is not available yet.")
     print("1) Player vs Player")
     print("2) Player vs Computer (Not available, coming soon.)")
     x = input()
