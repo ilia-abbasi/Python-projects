@@ -1,4 +1,4 @@
-# Chess
+# Chess (BETA)
 # Programmer: Ilia Abbasi
 
 class Chess:
