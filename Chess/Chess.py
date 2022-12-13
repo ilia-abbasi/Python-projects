@@ -1,6 +1,8 @@
 # Chess (BETA)
 # Programmer: Ilia Abbasi
 
+from random import randint
+
 class Chess:
     __board = [['wR','wN','wB','wQ','wK','wB','wN','wR'],['wP']*8,['0']*8,['0']*8,['0']*8,['0']*8,['bP']*8,['bR','bN','bB','bQ','bK','bB','bN','bR']]
     __turn = 'w'
@@ -14,6 +16,9 @@ class Chess:
             if pos[0] == self.__files[i]:
                 result[1] = i
         return result
+    
+    def pos_to_str(self, pos : list) -> str:
+        return self.__files[pos[1]] + str(pos[0] + 1)
     
     def is_in_range(self, pos : str or list) -> bool:
         pos = self.get_pos(pos) if type(pos) is str else pos
@@ -332,7 +337,9 @@ class Chess:
             return True
 
         if len(move) == 5: #Finds promotion moves
-            if move[4] not in 'qrbn':
+            if move[4].lower() not in 'qrbn':
+                return False
+            if self.get_piece(move[:2], board) == '0':
                 return False
             if self.get_piece(move[:2], board)[1] != 'P':
                 return False
@@ -410,6 +417,48 @@ class Chess:
             return True
         return False
     
+    def find_all_moves(self, turn : str = __turn, board : list = __board) -> list:
+        moves = ["0-0", "0-0-0"]
+
+        for i in range(8):
+            for l in range(8):
+                j = board[i][l]
+                if j[0] != turn:
+                    continue
+
+                pos = self.pos_to_str([i,l])
+                if j[1] == 'K':
+                    piece_moves = self.get_king_move(pos, board)
+                    for k in piece_moves:
+                        moves.append(pos + self.pos_to_str(k))
+                if j[1] == 'Q':
+                    piece_moves = self.get_queen_move(pos, board)
+                    for k in piece_moves:
+                        moves.append(pos + self.pos_to_str(k))
+                if j[1] == 'R':
+                    piece_moves = self.get_rook_move(pos, board)
+                    for k in piece_moves:
+                        moves.append(pos + self.pos_to_str(k))
+                if j[1] == 'B':
+                    piece_moves = self.get_bishop_move(pos, board)
+                    for k in piece_moves:
+                        moves.append(pos + self.pos_to_str(k))
+                if j[1] == 'N':
+                    piece_moves = self.get_knight_move(pos, board)
+                    for k in piece_moves:
+                        moves.append(pos + self.pos_to_str(k))
+                if j[1] == 'P':
+                    piece_moves = self.get_pawn_move(pos, turn, board)
+                    for k in piece_moves:
+                        moves.append(pos + self.pos_to_str(k))
+        
+        result = []
+        for i in moves:
+            if self.is_legal_move(i, turn, board):
+                result.append(i)
+        
+        return result
+    
     def view(self, board : list = __board) -> None:
         print("_________________________________________")
         for i in range(7,-1,-1):
@@ -422,23 +471,64 @@ class Chess:
 def main():
 
     game = Chess()
-    t = 'w'
     turns = ['w', 'b']
     index = 0
 
     print("welcome to chess!")
     print("* En passant is not available yet.")
     print("1) Player vs Player")
-    print("2) Player vs Computer (Not available, coming soon.)")
+    print("2) Player vs Computer")
     x = input()
 
-    while x == "1":
+    while x == '1':
         game.view()
-        move = input('Play a move (Format: e2e4): ')
+        
+        moves = game.find_all_moves(turns[index])
+        if len(moves) == 0 and game.is_check(game.find_piece(turns[index] + 'K'), turns[index]):
+            print(turns[not index].upper() + " Won!")
+            return
+        if len(moves) == 0:
+            print("Stalemate!")
+            return
+        
+        move = input("Play a move (Format: e2e4): ")
 
-        if game.go_for(move,t):
+        if game.go_for(move, turns[index]):
             index = not index
-            t = turns[index]
+    
+    you = 0
+    if x == '2':
+        answer = input("Do you want to play as white?(y/n) ").lower()
+        you = (answer != 'y' and answer != "yes")
+    
+    while x == '2':
+        game.view()
+
+        moves = game.find_all_moves(turns[index])
+        if len(moves) == 0 and game.is_check(game.find_piece(turns[index] + 'K'), turns[index]):
+            print(turns[not index].upper() + " Won!")
+            return
+        if len(moves) == 0:
+            print("Stalemate!")
+            return
+        
+        if index == you:
+            move = input("Play a move (Format: e2e4): ")
+            if game.go_for(move, turns[index]):
+                index = not index
+            continue
+        
+        moves = game.find_all_moves(turns[index])
+        if len(moves) == 0 and game.is_check(game.find_piece(turns[index] + 'K'), turns[index]):
+            print(turns[not index].upper() + " Won!")
+            return
+        if len(moves) == 0:
+            print("Stalemate!")
+            return
+        
+        move = randint(0,len(moves) - 1)
+        game.go_for(moves[move], turns[index])
+        index = not index
 
 if __name__ == "__main__":
     main()
