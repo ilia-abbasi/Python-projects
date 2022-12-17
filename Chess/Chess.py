@@ -460,13 +460,15 @@ class Chess:
         return result
     
     def view(self, board : list = __board) -> None:
-        print("_________________________________________")
+        print(" _________________________________________")
         for i in range(7,-1,-1):
+            print(i + 1, end="")
             for j in range(8):
                 string = board[i][j] if board[i][j] != "0" else "  "
                 print("| " + string + " ", end="")
             print("|")
-            print("|____|____|____|____|____|____|____|____|")
+            print(" |____|____|____|____|____|____|____|____|")
+        print("   a    b    c    d    e    f    g    h   ")
 
 def main():
 
