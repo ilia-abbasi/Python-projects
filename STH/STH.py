@@ -1,5 +1,6 @@
 #STH (SeTil Hash) algorithm
 #Designer: Ilia Abbasi
+#https://github.com/ilia-abbasi/Python-projects/blob/main/STH/STH.py
 
 BASE = 16
 DIGEST_LENGTH = 64
