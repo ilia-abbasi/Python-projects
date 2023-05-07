@@ -19,7 +19,7 @@ def STH(s : str) -> str:
 		chars.append(x)
 	
 	
-	itr = 0;
+	itr = 0
 	while len(chars) > DIGEST_LENGTH:
 		if itr >= DIGEST_LENGTH:
 			itr = 0
@@ -30,7 +30,7 @@ def STH(s : str) -> str:
 		itr += 1
 	
 	for i in range(DIGEST_LENGTH):
-		digest += pieces[chars[i] % BASE + 1];
+		digest += pieces[chars[i] % BASE + 1]
 	
 	
 	return digest
