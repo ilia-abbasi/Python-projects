@@ -47,6 +47,8 @@ Privacy Policy:
 
 - siLocker is written in Python and compiled with Pyinstaller. If you want the source code you
 can visit the developer's GitHub page: https://github.com/ilia-abbasi
+- siLocker uses our own module called "toolbox". You should have this module to run the script:
+https://github.com/ilia-abbasi/Python-projects/blob/main/Modules/toolbox.py
 - siLocker never saves, shares or manipulates your device's information.
 - siLocker never saves, shares or manipulates your BIOS information.
 - siLocker never saves, shares or manipulates your files' information.
