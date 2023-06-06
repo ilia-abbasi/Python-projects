@@ -1,8 +1,8 @@
 siLocker v1.0.1  Windows/Linux
 Developer: Ilia Abbasi
 -----------------------------------
-  
-  
+
+
 What this program does:
 
 - siLocker can encrypt/decrypt your files using a key you give it.
@@ -21,8 +21,8 @@ don't have your BIOS information. If you use Strict Mode and then for any reason
 something related to your BIOS, your data will pretty much be inaccessible forever. so:
 
 USE STRICT MODE AT YOUR OWN RISK. WE DO NOT TAKE ANY RESPONSIBILITIES IF ANY OF YOUR FILES GET LOST, DELETED OR CORRUPTED, AFTER USING THE "STRICT MODE".
-  
-  
+
+
 How to use:
 
 - siLocker can be used on Windows or Linux.
@@ -41,8 +41,8 @@ green and if any error happened, then the program will print the error in white 
 red background.
 - If you saw this text: "Exception caught" while running the program and you didn't know what
 the error is, then contact the developer.
-  
-  
+
+
 Privacy Policy:
 
 - siLocker is written in Python and compiled with Pyinstaller. If you want the source code you
@@ -53,7 +53,7 @@ can visit the developer's GitHub page: https://github.com/ilia-abbasi
 - siLocker uses your BIOS information only to encrypt/decrypt your files.
 - If there are still any uncertainties for you on how this program functions on your device,
 you can get the source code yourself in our GitHub page: https://github.com/ilia-abbasi
-  
-  
+
+
 -----------------------------------
 Thanks for using our program!
