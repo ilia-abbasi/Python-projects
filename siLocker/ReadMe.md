@@ -42,7 +42,7 @@ red background.
 - If you saw this text: "Exception caught" while running the program and you didn't know what
 the error is, then contact the developer.
 - siLocker uses our own module called "toolbox". You should have this module to run the script:
-https://github.com/ilia-abbasi/Python-projects/blob/main/Modules/toolbox.py
+https://github.com/ilia-abbasi/Python-projects/tree/main/Modules/toolbox
 
 
 Privacy Policy:
