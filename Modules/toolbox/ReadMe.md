@@ -5,7 +5,7 @@ Developer: Ilia Abbasi
 
 Documentation:
 
-*save_file()
+save_file()
  - It save some contents in a file with an options.
  - This function recieves everything that a open() function needs.
  - It has an extra argument named "smart" as a boolean with the default value of False.
@@ -24,21 +24,21 @@ handle_answer()
  - "one_char" indicate whether the answer can have 1 character only or not. True as default.
  - "default" is the default answer, if user entered nothing. If left empty and user also didn't enter anything, then the function will throw an error.
 
-* own_file_name()
+own_file_name()
  - Returns the name of the current file which is running.
 
-* cwd()
+cwd()
  - Returns current working directory.
 
-* path_splitter()
+path_splitter()
  - Returns the splitter character for paths based on the OS. \ for windows and / for linux.
 
-* roaming_appdata()
+roaming_appdata()
  - Returns the roaming appdata path.
 
-* local_appdata()
+local_appdata()
  - Returns the local appdata path.
 
-* get_cmd_result()
+get_cmd_result()
  - Returns the result of the given command and doesn't print anything to stdout.
  - If you had a faster solution, please make a pull request.
