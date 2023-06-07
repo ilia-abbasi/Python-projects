@@ -5,7 +5,7 @@ Developer: Ilia Abbasi
 
 Documentation:
 
-* save_file()
++ save_file()
  - It save some contents in a file with an options.
  - This function recieves everything that a open() function needs.
  - It has an extra argument named "smart" as a boolean with the default value of False.
