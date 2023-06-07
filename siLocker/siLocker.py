@@ -5,7 +5,7 @@ import os
 import sys
 import base64
 import hashlib
-import toolbox as T # ReadMe
+import toolbox as T # ReadMe -> How to use
 from colorama import Fore
 from colorama import Back
 from colorama import Style
