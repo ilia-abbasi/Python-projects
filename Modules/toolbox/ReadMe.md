@@ -5,19 +5,19 @@ Developer: Ilia Abbasi
 
 Documentation:
 
-+ save_file()
+*save_file()
  - It save some contents in a file with an options.
  - This function recieves everything that a open() function needs.
  - It has an extra argument named "smart" as a boolean with the default value of False.
  - If "smart" is True then the function will not overwrite previously existing files with the same name.
  - An integer will be added recursively at the end of the file name to find an empty spot.
 
-* raw_or_file()
+raw_or_file()
  - It recieves the argument "s".
  - If "s" exists as a file, return the contents of it. If not then return "s" itself.
  - This function can be used when you want to give user the option to either enter a value or the file name that contains that value.
 
-* handle_answer()
+handle_answer()
  - This function is used when you want to handle the answer of user for a prompt.
  - "options" is the list of expected answers.
  - "case_sensitive" indicates whether the answer should be case sensitive or not. False as default.
