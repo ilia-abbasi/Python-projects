@@ -1,4 +1,4 @@
-# Toolbox v1.0.0
+# Toolbox v1.0.1
 # Programmer: Ilia Abbasi
 
 import os
@@ -7,11 +7,11 @@ import sys
 class Answer_Exception(Exception):
     pass
 
-def save_file(file_name : str, contents, mode : str = "t", smart : bool = False) -> None:
+def save_file(file_name : str, contents, mode : str = "t", smart : bool = False) -> str:
     if not smart or not os.path.isfile(file_name):
         with open(file_name, "w" + mode) as file:
             file.write(contents)
-        return
+        return file_name
     
     i = 1
     while 1:
@@ -22,7 +22,7 @@ def save_file(file_name : str, contents, mode : str = "t", smart : bool = False)
 
         with open(file_name, "w" + mode) as file:
             file.write(contents)
-        return
+        return file_name
 
 def raw_or_file(s : str) -> str:
     if not os.path.isfile(s):
