@@ -1,4 +1,4 @@
-toolbox v1.0.0  Windows
+toolbox v1.0.1  Windows
 Developer: Ilia Abbasi
 -----------------------------------
 
@@ -11,6 +11,7 @@ save_file()
  - It has an extra argument named "smart" as a boolean with the default value of False.
  - If "smart" is True then the function will not overwrite previously existing files with the same name.
  - An integer will be added recursively at the end of the file name to find an empty spot.
+ - After saving and closing the file, the file_name which the contents were saved in, will be returned.
 
 raw_or_file()
  - It recieves the argument "s".
