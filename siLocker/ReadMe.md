@@ -1,4 +1,4 @@
-siLocker v1.0.1  Windows/Linux
+siLocker v1.0.2  Windows/Linux
 Developer: Ilia Abbasi
 -----------------------------------
 
@@ -10,10 +10,11 @@ What this program does:
 - siLocker only encrypts/decrypts the files in the directory which it's running.
 - siLocker hashes your key with sha256 algorithm and turns the result into a 64base encoding
 string, then it uses that string as the real Fernet key for encrypting/decrypting your files.
-- There is a "safe" folder called "NO_LOCK_FOLDER" that is immune to this program's affects. If
+- There is a "safe" folder called "NO_LOCK_FOLDER" that is immune to this program's effects. If
 you name a folder "NO_LOCK_FOLDER", then nothing in that folder (recursively) is affected by
 siLocker. If siLocker itself has a "NO_LOCK_FOLDER" in its parent folders, then the program
 will do nothing at all.
+- siLocker will not encrypt/decrypt itself.
 - In the "Strict Mode", siLocker also uses your BIOS information as a unique key representing
 your device, to make the encryption much more safer. In this case even if someone steals your
 encrypted files and also your key, they will still not be able to decrypt your data, as they
