@@ -1,4 +1,4 @@
-# siLocker v1.0.1
+# siLocker v1.0.2
 # Programmer: Ilia Abbasi 
 
 import os
@@ -12,12 +12,12 @@ from colorama import Style
 from colorama import init as c_init
 from cryptography.fernet import Fernet
 
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 RELEASE = "Windows/Linux"
 OS = os.name
 SLSH = T.path_splitter()
 BIOS_COMMAND = "wmic bios" if OS == "nt" else "dmidecode"
-OWN_FILE_NAME = SLSH + T.own_file_name()
+OWN_FILE_NAME = T.own_file_name()
 NO_LOCK_FOLDER = SLSH + "NO_LOCK_FOLDER" + SLSH
 DEFAULT_KEY = "HQelmSeeZGKdX1AF6QyG5WTTNhOFjcb4FVMyTp4Don0="
 
@@ -66,7 +66,7 @@ def handle_key(key : str, mode : str) -> str:
 
     return encryption_key.encode()
 
-def setilock_all(f : Fernet, action : str, path : str = (os.getcwd() + SLSH), original_path : str = "") -> None:
+def setilock_all(f : Fernet, action : str, path : str = (T.cwd() + SLSH), original_path : str = "") -> None:
     global failed_files, all_files
 
     if original_path == "":
@@ -76,7 +76,7 @@ def setilock_all(f : Fernet, action : str, path : str = (os.getcwd() + SLSH), or
 
         file_path = path + file
 
-        if OWN_FILE_NAME == file_path[-len(OWN_FILE_NAME):]:
+        if original_path + OWN_FILE_NAME == file_path:
             continue
         if NO_LOCK_FOLDER in file_path:
             return
