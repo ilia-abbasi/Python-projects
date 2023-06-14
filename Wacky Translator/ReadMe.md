@@ -1,3 +1,7 @@
+Wacky Translator v2.0.0
+Programmer: Ilia Abbasi
+-----------------------
+
 open cmd/terminal and enter:
 
 pip install translate
@@ -12,4 +16,5 @@ This script is written by github.com/ilia-abbasi using the "translate" module.
 But you can use the script however you want, there is no need to copy this ReadMe file
 or copy the name of the author, when using this script somewhere else.
 
-Thanks!
+The program also uses our own module called "toolbox":
+https://github.com/ilia-abbasi/Python-projects/tree/main/Modules/toolbox
