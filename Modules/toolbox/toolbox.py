@@ -1,4 +1,4 @@
-# Toolbox v1.0.1
+# Toolbox v1.3.0
 # Programmer: Ilia Abbasi
 
 import os
@@ -7,25 +7,47 @@ import sys
 class Answer_Exception(Exception):
     pass
 
-def save_file(file_name : str, contents, mode : str = "t", smart : bool = False) -> str:
-    if not smart or not os.path.isfile(file_name):
-        with open(file_name, "w" + mode) as file:
+def is_file(path : str) -> bool:
+    return os.path.isfile(path)
+
+def is_folder(path : str) -> bool:
+    return os.path.isdir(path)
+
+def path_exists(path : str) -> bool:
+    return os.path.exists(path)
+
+def save_file(file_name : str, extension : str, contents, mode : str = "t", smart : bool = False) -> str:
+    full_name = file_name + extension
+
+    if not smart or not is_file(full_name):
+        with open(full_name, "w" + mode) as file:
             file.write(contents)
-        return file_name
+        return full_name
     
     i = 1
     while 1:
         file_name += str(i)
-        if os.path.isfile(file_name):
+        full_name = file_name + extension
+        if is_file(full_name):
             i += 1
             continue
 
-        with open(file_name, "w" + mode) as file:
+        with open(full_name, "w" + mode) as file:
             file.write(contents)
-        return file_name
+        return full_name
+
+def load_file(file_name : str, mode : str = "t", strict : bool = False, default_contents : str = ""):
+    exists = is_file(file_name)
+    if not exists and strict:
+        raise FileNotFoundError
+    if not exists and not strict:
+        return default_contents
+    
+    with open(file_name, "r" + mode) as file:
+        return file.read()
 
 def raw_or_file(s : str) -> str:
-    if not os.path.isfile(s):
+    if not is_file(s):
         return s
     
     with open(s, "rt") as file:
