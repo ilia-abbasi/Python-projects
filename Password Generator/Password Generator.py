@@ -19,7 +19,7 @@ def generate_password(length : int = 8) -> str:
 
     all = UPPS + LOWS + NUMS + SPCS
     for i in range(length):
-        password.insert(randint(0,length-1), all[randint(0,67)])
+        password.insert(randint(0,i+5), all[randint(0,67)])
     
     password = "".join(password)
     return password
