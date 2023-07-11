@@ -21,7 +21,7 @@ encrypted files and also your key, they will still not be able to decrypt your d
 don't have your BIOS information. If you use Strict Mode and then for any reason change
 something related to your BIOS, your data will pretty much be inaccessible forever. so:
 
-USE STRICT MODE AT YOUR OWN RISK. WE DO NOT TAKE ANY RESPONSIBILITIES IF ANY OF YOUR FILES GET LOST, DELETED OR CORRUPTED, AFTER USING THE "STRICT MODE".
+USE STRICT MODE AT YOUR OWN RISK. I DO NOT TAKE ANY RESPONSIBILITIES IF ANY OF YOUR FILES GET LOST, DELETED OR CORRUPTED, AFTER USING THE "STRICT MODE".
 
 
 How to use:
@@ -35,14 +35,14 @@ by default.
 - Then you are asked if you want to lock the files or unlock them. Enter "L" to lock and "U" to
 unlock. If you enter nothing then the program will raise an error.
 - Then siLocker will display what it is doing. White text means OK. Red text means Error. If
-for any reason you can't see the colors, then there is also a + or - sign at the start of
+for any reason you can't see the colors, there is also a + or - sign at the start of
 each entry which + means OK and - is Error.
 - At the end siLocker will output the result. If there was no error then the text will be
-green and if any error happened, then the program will print the error in white text with
+green and if any error happened, the program will print the error in white text with
 red background.
 - If you saw this text: "Exception caught" while running the program and you didn't know what
-the error is, then contact the developer.
-- siLocker uses our own module called "toolbox". You should have this module to run the script:
+the error was, contact the developer.
+- siLocker uses my own module called "toolbox". You should have this module to run the script:
 https://github.com/ilia-abbasi/Python-projects/tree/main/Modules/toolbox
 
 
@@ -55,8 +55,8 @@ can visit the developer's GitHub page: https://github.com/ilia-abbasi
 - siLocker never saves, shares or manipulates your files' information.
 - siLocker uses your BIOS information only to encrypt/decrypt your files.
 - If there are still any uncertainties for you on how this program functions on your device,
-you can get the source code yourself in our GitHub page: https://github.com/ilia-abbasi
+you can get the source code yourself in my GitHub page: https://github.com/ilia-abbasi
 
 
 -----------------------------------
-Thanks for using our program!
+Thanks for using my program!
