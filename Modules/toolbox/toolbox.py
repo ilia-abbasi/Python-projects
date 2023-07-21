@@ -29,8 +29,7 @@ def save_file(file_name : str, extension : str, contents, mode : str = "t", smar
     
     i = 1
     while 1:
-        file_name += str(i)
-        full_name = file_name + extension
+        full_name = file_name + str(i) + extension
         if is_file(full_name):
             i += 1
             continue
