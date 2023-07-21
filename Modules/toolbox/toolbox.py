@@ -1,4 +1,4 @@
-# Toolbox v1.3.0
+# Toolbox v1.3.1
 # Programmer: Ilia Abbasi
 
 import os
@@ -17,6 +17,9 @@ def path_exists(path : str) -> bool:
     return os.path.exists(path)
 
 def save_file(file_name : str, extension : str, contents, mode : str = "t", smart : bool = False) -> str:
+    if extension[0] != ".":
+        extension = "." + extension
+    
     full_name = file_name + extension
 
     if not smart or not is_file(full_name):
