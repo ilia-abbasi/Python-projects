@@ -1,21 +1,12 @@
-toolbox v1.3.0  Windows
+toolbox v1.3.1  Windows
 Developer: Ilia Abbasi
 -----------------------------------
 
 
 Documentation:
 
-is_file()
- - Checks if the given path is file.
-
-is_folder()
- - Checks if the given path is folder.
-
-path_exists()
- - Checks if the given path exists.
-
 save_file()
- - It save some contents in a file with options.
+ - It save some contents in a file with an options.
  - This function recieves everything that a open() function needs.
  - It has an extra argument named "smart" as a boolean with the default value of False.
  - If "smart" is True then the function will not overwrite previously existing files with the same name.
@@ -31,7 +22,7 @@ handle_answer()
  - This function is used when you want to handle the answer of user for a prompt.
  - "options" is the list of expected answers.
  - "case_sensitive" indicates whether the answer should be case sensitive or not. False as default.
- - "one_char" indicates whether the answer can have 1 character only or not. True as default.
+ - "one_char" indicate whether the answer can have 1 character only or not. True as default.
  - "default" is the default answer, if user entered nothing. If left empty and user also didn't enter anything, then the function will throw an error.
 
 own_file_name()
