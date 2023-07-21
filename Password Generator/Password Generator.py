@@ -27,9 +27,14 @@ def generate_password(length : int = 8) -> str:
 def main() -> None:
 
     while 1:
-        length = int(input())
+        length = input("Length: ")
+        if length == "":
+            length = 8
+        length = int(length)
+
         if length < 8:
             raise Exception("Min length is 8.")
+        
         print(generate_password(length))
     
 
