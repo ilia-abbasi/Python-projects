@@ -312,9 +312,6 @@ class Chess:
                 return False
             if self.is_check([rank, 4], colors[index], board) or self.is_check([rank, 5], colors[index], board) or self.is_check([rank, 6], colors[index], board):
                 return False
-            
-            self.__king_moved[index] = True
-            self.__rook_moved[index][1] = True
 
             return True
 
@@ -330,9 +327,6 @@ class Chess:
                 return False
             if self.is_check([rank, 4], colors[index], board) or self.is_check([rank, 3], colors[index], board) or self.is_check([rank, 2], colors[index], board):
                 return False
-            
-            self.__king_moved[index] = True
-            self.__rook_moved[index][0] = True
 
             return True
 
@@ -356,8 +350,8 @@ class Chess:
         if not self.is_in_range(pos1) or not self.is_in_range(pos2):
             return False
 
-        moving_piece = self.get_piece(pos1)
-        landing_square = self.get_piece(pos2)
+        moving_piece = self.get_piece(pos1, board)
+        landing_square = self.get_piece(pos2, board)
         
         if moving_piece[0] != turn or landing_square[0] == turn:
             return False
@@ -382,7 +376,15 @@ class Chess:
         copy_board = self.__play(move, copy_board)
         if self.is_check(self.find_piece(turn + 'K', copy_board), turn, copy_board):
             return False
-        #The move is legal and will happen.
+        
+        
+        return True
+    
+    def go_for(self, move : str, turn : str = __turn, board : list = __board) -> bool:
+        index = (turn == 'b')
+        
+        if not self.is_legal_move(move, turn, board):
+            return False
 
         if move[:2] == 'a1' or move[2:] == 'a1':
             self.__rook_moved[0][0] = True
@@ -393,29 +395,32 @@ class Chess:
         if move[:2] == 'h8' or move[2:] == 'h8':
             self.__rook_moved[1][1] = True
         
-        if self.get_piece(move[:2]) == 'wK':
-            self.__king_moved[0] = True
-        if self.get_piece(move[:2]) == 'bk':
-            self.__king_moved[1] = True
+        if len(move) == 4 and self.get_piece(move[:2], board) == (turn + 'K'):
+            self.__king_moved[index] = True
+
+        if move == "0-0":
+            self.__king_moved[index] = True
+            self.__rook_moved[index][1] = True
+        if move == "0-0-0":
+            self.__king_moved[index] = True
+            self.__rook_moved[index][0] = True
+        
+        move = self.translate_specials(move, turn)
+        if type(move) is list: #Handles castling
+            for i in move:
+                self.__play(i, board)
+            
+        elif type(move) is tuple: #Handles promotion
+            move = move[0] + move[1]
+            self.__play(move[:4], board)
+            cords = self.get_pos(move[2:4])
+            board[cords[0]][cords[1]] = turn + move[4].upper()
+            
+        else: #Handles normal moves
+            self.__play(move, board)
+
         
         return True
-    
-    def go_for(self, move : str, turn : str = __turn, board : list = __board) -> None:
-        if self.is_legal_move(move, turn, board):
-            move = self.translate_specials(move, turn)
-            if type(move) is list: #Handles castling
-                for i in move:
-                    self.__play(i, board)
-                return True
-            if type(move) is tuple: #Handles promotion
-                move = move[0] + move[1]
-                self.__play(move[:4], board)
-                cords = self.get_pos(move[2:4])
-                board[cords[0]][cords[1]] = turn + move[4].upper()
-                return True
-            self.__play(move, board) #Handles normal moves
-            return True
-        return False
     
     def find_all_moves(self, turn : str = __turn, board : list = __board) -> list:
         moves = ["0-0", "0-0-0"]
@@ -460,13 +465,15 @@ class Chess:
         return result
     
     def view(self, board : list = __board) -> None:
-        print("_________________________________________")
+        print(" _________________________________________")
         for i in range(7,-1,-1):
+            print(i + 1, end="")
             for j in range(8):
                 string = board[i][j] if board[i][j] != "0" else "  "
                 print("| " + string + " ", end="")
             print("|")
-            print("|____|____|____|____|____|____|____|____|")
+            print(" |____|____|____|____|____|____|____|____|")
+        print("   a    b    c    d    e    f    g    h   ")
 
 def main():
 
@@ -474,7 +481,7 @@ def main():
     turns = ['w', 'b']
     index = 0
 
-    print("welcome to chess!")
+    print("Welcome to Chess!")
     print("* En passant is not available yet.")
     print("1) Player vs Player")
     print("2) Player vs Computer")
