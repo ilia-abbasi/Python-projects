@@ -1,4 +1,4 @@
-# Toolbox v1.3.1
+# Toolbox v1.4.0
 # Programmer: Ilia Abbasi
 
 import os
@@ -80,13 +80,13 @@ def own_file_name() -> str:
 def cwd() -> str:
     return os.getcwd()
 
-def path_splitter() -> str:
+def path_delimiter() -> str:
     if "/" in cwd():
         return "/"
     if "\\" in cwd():
         return "\\"
     
-    raise Exception("Failed to find path_splitter of this OS.")
+    raise Exception("Failed to find path_delimiter of this OS.")
 
 def roaming_appdata() -> str:
     return os.getenv('APPDATA')
@@ -95,8 +95,9 @@ def local_appdata() -> str:
     return os.getenv('LOCALAPPDATA')
 
 def get_cmd_result(command : str) -> str:
-    os.system(command + " > temp.tbx")
-    with open("temp.tbx", "rt") as file:
+    path = roaming_appdata() + path_delimiter() + "temp.tbx"
+    os.system(command + f" > \"{path}\"")
+    with open(path, "rt") as file:
         contents = file.read()
-    os.remove("temp.tbx")
+    
     return contents
