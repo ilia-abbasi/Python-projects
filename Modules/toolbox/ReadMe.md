@@ -32,7 +32,7 @@ cwd()
  - Returns current working directory.
 
 path_delimiter()
- - Returns the splitter character for paths based on the OS. \ for windows and / for linux.
+ - Returns the path delimiter based on the OS. \ for windows and / for linux.
 
 roaming_appdata()
  - Returns the roaming appdata path.
