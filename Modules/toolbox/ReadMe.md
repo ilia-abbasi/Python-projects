@@ -1,4 +1,4 @@
-toolbox v1.3.1  Windows
+toolbox v1.4.0  Windows
 Developer: Ilia Abbasi
 -----------------------------------
 
@@ -31,7 +31,7 @@ own_file_name()
 cwd()
  - Returns current working directory.
 
-path_splitter()
+path_delimiter()
  - Returns the splitter character for paths based on the OS. \ for windows and / for linux.
 
 roaming_appdata()
