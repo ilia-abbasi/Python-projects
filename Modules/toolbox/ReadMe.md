@@ -1,4 +1,4 @@
-toolbox v1.4.0  Windows
+toolbox v1.4.1  Windows
 Programmer: Ilia Abbasi
 -----------------------------------
 
@@ -33,6 +33,9 @@ cwd()
 
 path_delimiter()
  - Returns the path delimiter based on the OS. \ for windows and / for linux.
+
+path_splitter()
+ - Alias of path_delimiter(). It stays here for compatibility.
 
 roaming_appdata()
  - Returns the roaming appdata path.
