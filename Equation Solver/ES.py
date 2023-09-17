@@ -1,3 +1,6 @@
+# Equation Solver v1.0.1
+# Programmer: Ilia Abbasi
+
 nums = ["0","1","2","3","4","5","6","7","8","9","."]
 letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 
@@ -111,11 +114,18 @@ def solve(e: str, majhool: str = "x"):
             result += i
 
     return result
-            
 
-if __name__ == "__main__":
-
+def main() -> None:
     eq = input("Enter your equation: ")
     answer = solve(eq)
 
     print(answer)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\nYou 'Ctrl-C'ed out of this place!")
+    except Exception as e:
+        print(f"Exception caught:\n{e}")
