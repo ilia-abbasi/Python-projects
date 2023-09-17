@@ -115,7 +115,7 @@ def solve(e: str, majhool: str = "x"):
 
     return result
 
-def main() -> void:
+def main() -> None:
     eq = input("Enter your equation: ")
     answer = solve(eq)
 
