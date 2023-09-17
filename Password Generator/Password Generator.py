@@ -12,7 +12,7 @@ SPCS = "!@#$?/"
 def generate_password(length : int = 8) -> str:
 
     password = []
-    password.append(secrets.choice(UPPS))
+    password.append(choose_random(UPPS))
     password.insert(randint(0,1), choose_random(LOWS))
     password.insert(randint(0,2), choose_random(NUMS))
     password.insert(randint(0,3), choose_random(SPCS))
