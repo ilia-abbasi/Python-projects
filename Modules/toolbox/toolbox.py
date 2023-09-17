@@ -1,4 +1,4 @@
-# Toolbox v1.4.0
+# Toolbox v1.4.1
 # Programmer: Ilia Abbasi
 
 import os
@@ -87,6 +87,9 @@ def path_delimiter() -> str:
         return "\\"
     
     raise Exception("Failed to find path_delimiter of this OS.")
+
+def path_splitter() -> str:
+    return path_delimiter()
 
 def roaming_appdata() -> str:
     return os.getenv('APPDATA')
