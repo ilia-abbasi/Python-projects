@@ -1,7 +1,8 @@
-# Password Generator
+# Password Generator v1.1.0
 # Programmer: Ilia Abbasi
 
 from random import randint
+from secrets import choice as choose_random
 
 UPPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 LOWS = "abcdefghijklmnopqrstuvwxyz"
@@ -11,15 +12,15 @@ SPCS = "!@#$?/"
 def generate_password(length : int = 8) -> str:
 
     password = []
-    password.append(UPPS[randint(0,25)])
-    password.insert(randint(0,1), LOWS[randint(0,25)])
-    password.insert(randint(0,2), NUMS[randint(0,9)])
-    password.insert(randint(0,3), SPCS[randint(0,5)])
+    password.append(choose_random(UPPS))
+    password.insert(randint(0,1), choose_random(LOWS))
+    password.insert(randint(0,2), choose_random(NUMS))
+    password.insert(randint(0,3), choose_random(SPCS))
     length -= 4
 
-    all = UPPS + LOWS + NUMS + SPCS
+    everything = UPPS + LOWS + NUMS + SPCS
     for i in range(length):
-        password.insert(randint(0,i+5), all[randint(0,67)])
+        password.insert(randint(0,i+5), choose_random(everything))
     
     password = "".join(password)
     return password
