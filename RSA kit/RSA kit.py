@@ -1,4 +1,4 @@
-# R v1.0.0
+# RSA kit v1.0.0
 # Programmer: Ilia Abbasi
 
 import os
