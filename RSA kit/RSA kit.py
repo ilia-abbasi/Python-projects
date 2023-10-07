@@ -1,4 +1,4 @@
-# Setilia Safe v1.0.0
+# R v1.0.0
 # Programmer: Ilia Abbasi
 
 import os
