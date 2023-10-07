@@ -28,7 +28,7 @@ def print_cph(text : any = "") -> None:
     print(f"{Fore.BLACK}{Back.YELLOW}{text}{Style.RESET_ALL}")
 
 
-class Setilia_Safe:
+class RSA_kit:
     __public_key = {"key": None, "name": None, "tag": None}
     __private_key = {"key": None, "name": None, "tag": None}
     __cipher = None
@@ -226,11 +226,11 @@ def main() -> None:
     
     c_init()
 
-    safe = Setilia_Safe()
+    rsa_kit = RSA_kit()
 
     while True:
         clear()
-        safe.show_info()
+        rsa_kit.show_info()
 
         print()
         print("1) Generate Key Pair            2) Load Key Pair")
@@ -262,7 +262,7 @@ def main() -> None:
             print("Please be patient. This process can take minutes.")
 
             key_size = 2 ** (9 + x)
-            succeed = safe.generate_keys(key_name, key_size)
+            succeed = rsa_kit.generate_keys(key_name, key_size)
             
             clear()
 
@@ -279,7 +279,7 @@ def main() -> None:
             key_name = input("The name of the key pair: ")
             clear()
 
-            succeed = safe.load_keys(key_name)
+            succeed = rsa_kit.load_keys(key_name)
             
             if not succeed:
                 print("Failed. At least one key is missing.")
@@ -294,7 +294,7 @@ def main() -> None:
             key_name = input("The name of the public key: ")
             clear()
 
-            succeed = safe.load_pub_key(key_name)
+            succeed = rsa_kit.load_pub_key(key_name)
             
             if not succeed:
                 print("Failed. The key is missing.")
@@ -309,7 +309,7 @@ def main() -> None:
             key_name = input("The name of the private key: ")
             clear()
 
-            succeed = safe.load_pri_key(key_name)
+            succeed = rsa_kit.load_pri_key(key_name)
             
             if not succeed:
                 print("Failed. The key is missing.")
@@ -321,17 +321,17 @@ def main() -> None:
             continue
 
         if choice == "5":
-            if safe.keys_are_none():
+            if rsa_kit.keys_are_none():
                 print("Key slots are empty.")
                 pause()
                 continue
             
             print("Choose the encryption key:")
             print()
-            if not safe.pub_key_is_none():
-                print(f"1) Public  ({safe.get_pub_name()})")
-            if not safe.pri_key_is_none():
-                print(f"2) Private ({safe.get_pri_name()})")
+            if not rsa_kit.pub_key_is_none():
+                print(f"1) Public  ({rsa_kit.get_pub_name()})")
+            if not rsa_kit.pri_key_is_none():
+                print(f"2) Private ({rsa_kit.get_pri_name()})")
             print()
             x = input("Your Choice: ")
             clear()
@@ -341,12 +341,12 @@ def main() -> None:
                 pause()
                 continue
 
-            if x == "1" and safe.pub_key_is_none():
+            if x == "1" and rsa_kit.pub_key_is_none():
                 print("Public key is not loaded.")
                 pause()
                 continue
 
-            if x == "2" and safe.pri_key_is_none():
+            if x == "2" and rsa_kit.pri_key_is_none():
                 print("Private key is not loaded.")
                 pause()
                 continue
@@ -354,9 +354,9 @@ def main() -> None:
             key = None
 
             if x == "1":
-                key = safe.get_pub_key()
+                key = rsa_kit.get_pub_key()
             if x == "2":
-                key = safe.get_pri_key()
+                key = rsa_kit.get_pri_key()
             
             max_chars = 0
             key_size = key.n.bit_length()
@@ -378,34 +378,34 @@ def main() -> None:
                 pause()
                 continue
 
-            succeed = safe.encrypt(text, key)
+            succeed = rsa_kit.encrypt(text, key)
             if not succeed:
                 print("Something went wrong.")
                 pause()
                 continue
 
-            file_name = safe.save_cipher("cipher")
+            file_name = rsa_kit.save_cipher("cipher")
             print(f"Cipher saved as \"{file_name}\".")
             pause()
             continue
         
         if choice == "6":
-            if safe.cipher_is_none():
+            if rsa_kit.cipher_is_none():
                 print("Cipher slot is empty")
                 pause()
                 continue
 
-            if safe.keys_are_none():
+            if rsa_kit.keys_are_none():
                 print("Key slots are empty.")
                 pause()
                 continue
             
             print("Choose the decryption key:")
             print()
-            if not safe.pub_key_is_none():
-                print(f"1) Public  ({safe.get_pub_name()})")
-            if not safe.pri_key_is_none():
-                print(f"2) Private ({safe.get_pri_name()})")
+            if not rsa_kit.pub_key_is_none():
+                print(f"1) Public  ({rsa_kit.get_pub_name()})")
+            if not rsa_kit.pri_key_is_none():
+                print(f"2) Private ({rsa_kit.get_pri_name()})")
             print()
             x = input("Your Choice: ")
             clear()
@@ -415,12 +415,12 @@ def main() -> None:
                 pause()
                 continue
 
-            if x == "1" and safe.pub_key_is_none():
+            if x == "1" and rsa_kit.pub_key_is_none():
                 print("Public key is not loaded.")
                 pause()
                 continue
 
-            if x == "2" and safe.pri_key_is_none():
+            if x == "2" and rsa_kit.pri_key_is_none():
                 print("Private key is not loaded.")
                 pause()
                 continue
@@ -428,11 +428,11 @@ def main() -> None:
             key = None
 
             if x == "1":
-                key = safe.get_pub_key()
+                key = rsa_kit.get_pub_key()
             if x == "2":
-                key = safe.get_pri_key()
+                key = rsa_kit.get_pri_key()
             
-            succeed = safe.decrypt(key)
+            succeed = rsa_kit.decrypt(key)
             if not type(succeed) is str:
                 print("Failed. Wrong key or corrupted cipher.")
                 pause()
@@ -456,7 +456,7 @@ def main() -> None:
             file_name = input("Name of the cipher file: ")
             clear()
 
-            succeed = safe.load_cipher(file_name)
+            succeed = rsa_kit.load_cipher(file_name)
             if not succeed:
                 print("File not found.")
                 pause()
