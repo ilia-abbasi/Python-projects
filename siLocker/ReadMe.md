@@ -1,4 +1,4 @@
-siLocker v1.0.2  Windows/Linux
+siLocker v1.0.3  Windows/Linux
 Developer: Ilia Abbasi
 -----------------------------------
 
