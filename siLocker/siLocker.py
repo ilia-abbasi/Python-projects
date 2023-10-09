@@ -12,7 +12,7 @@ from colorama import Style
 from colorama import init as c_init
 from cryptography.fernet import Fernet
 
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 RELEASE = "Windows/Linux"
 OS = os.name
 SLSH = T.path_delimiter()
