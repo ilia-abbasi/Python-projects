@@ -1,4 +1,4 @@
-# siLocker v1.0.2
+# siLocker v1.0.3
 # Programmer: Ilia Abbasi 
 
 import os
@@ -15,7 +15,7 @@ from cryptography.fernet import Fernet
 VERSION = "1.0.2"
 RELEASE = "Windows/Linux"
 OS = os.name
-SLSH = T.path_splitter()
+SLSH = T.path_delimiter()
 BIOS_COMMAND = "wmic bios" if OS == "nt" else "dmidecode"
 OWN_FILE_NAME = T.own_file_name()
 NO_LOCK_FOLDER = SLSH + "NO_LOCK_FOLDER" + SLSH
@@ -41,7 +41,7 @@ def print_warn(text) -> None:
     print(f"{Fore.YELLOW}{text}{Style.RESET_ALL}")
 
 def sha256(s = None) -> str:    #returns sha256(s) in base64 encoding
-    return base64.b64encode(hashlib.sha256(str(s).encode()).digest()).decode()
+    return base64.b64encode(hashlib.sha256(str(s).encode()).digest())
 
 def show_help() -> None:
     print("-h   Show options(this page)\n")
@@ -55,7 +55,7 @@ def handle_key(key : str, mode : str) -> str:
 
     hashed_key = sha256(key)
     if mode == "N":
-        return hashed_key.encode()
+        return hashed_key
     
     bios_data = T.get_cmd_result(BIOS_COMMAND)
 
@@ -64,9 +64,9 @@ def handle_key(key : str, mode : str) -> str:
 
     encryption_key = sha256(hashed_key + bios_data)
 
-    return encryption_key.encode()
+    return encryption_key
 
-def setilock_all(f : Fernet, action : str, path : str = (T.cwd() + SLSH), original_path : str = "") -> None:
+def silock_all(f : Fernet, action : str, path : str = (T.cwd() + SLSH), original_path : str = "") -> None:
     global failed_files, all_files
 
     if original_path == "":
@@ -81,8 +81,8 @@ def setilock_all(f : Fernet, action : str, path : str = (T.cwd() + SLSH), origin
         if NO_LOCK_FOLDER in file_path:
             return
         
-        if not os.path.isfile(file_path):
-            setilock_all(f, action, file_path + SLSH, original_path)
+        if not T.is_file(file_path):
+            silock_all(f, action, file_path + SLSH, original_path)
             continue
         
         try:
@@ -150,7 +150,7 @@ def main():
     print("\n" + word + "ocking your files...\n")
     
     f = Fernet(key)
-    setilock_all(f, action)
+    silock_all(f, action)
     
     print()
     if all_files == 0:
