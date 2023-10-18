@@ -1,4 +1,4 @@
-# siLocker v1.0.3
+# siLocker v1.0.4
 # Programmer: Ilia Abbasi 
 
 import os
@@ -12,7 +12,7 @@ from colorama import Style
 from colorama import init as c_init
 from cryptography.fernet import Fernet
 
-VERSION = "1.0.3"
+VERSION = "1.0.4"
 RELEASE = "Windows/Linux"
 OS = os.name
 SLSH = T.path_delimiter()
@@ -72,6 +72,10 @@ def silock_all(f : Fernet, action : str, path : str = (T.cwd() + SLSH), original
     if original_path == "":
         original_path = path
     
+    if not T.is_folder(path):
+        print_err(f"[-] Invalid path: \"{path}\" No action will happen here!")
+        return
+
     for file in os.listdir(path):
 
         file_path = path + file
@@ -81,7 +85,7 @@ def silock_all(f : Fernet, action : str, path : str = (T.cwd() + SLSH), original
         if NO_LOCK_FOLDER in file_path:
             return
         
-        if not T.is_file(file_path):
+        if T.is_folder(file_path):
             silock_all(f, action, file_path + SLSH, original_path)
             continue
         
